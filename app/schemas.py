@@ -11,3 +11,8 @@ class UserRead(BaseModel):
     role: str
     is_active: bool
     
+    
+class NoteCreate(BaseModel):
+    title: str
+    content: str
+    
