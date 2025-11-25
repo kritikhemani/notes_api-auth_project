@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field, EmailStr
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str
-    role: str
+    password: str = Field(min_length=8)
+    role: str = "user"
     
 class UserRead(BaseModel):
     id: int
