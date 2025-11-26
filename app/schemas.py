@@ -23,3 +23,12 @@ class NoteCreate(BaseModel):
 class NoteUpdate(BaseModel):
     title: Optional[str] = None
     content: Optional[str] = None
+    
+class NoteRead(BaseModel):
+    id: int
+    title: str
+    content: str
+    owner_id: int
+    
+    class Config:
+        from_attributes = True
