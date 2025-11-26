@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, EmailStr
+from typing import Optional
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -19,3 +20,6 @@ class NoteCreate(BaseModel):
     title: str
     content: str
     
+class NoteUpdate(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
