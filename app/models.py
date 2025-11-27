@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 class User(Base):
@@ -16,4 +17,4 @@ class Note(Base):
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
-    
+    owner = relationship("User", backref="notes")
