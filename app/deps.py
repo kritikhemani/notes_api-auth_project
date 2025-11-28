@@ -5,3 +5,5 @@ from app.database import SessionLocal
 from app.models import User
 from app.security import decode_token
 
+oauth_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+
