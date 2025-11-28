@@ -7,3 +7,10 @@ from app.security import decode_token
 
 oauth_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
