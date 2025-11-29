@@ -8,3 +8,6 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Notes API with JWT Authentication")
 
+app.include_router(auth_router)
+app.include_router(notes_router)
+
