@@ -44,4 +44,4 @@ def delete_note(note_id: int, db: Session = Depends(get_db), user=Depends(get_cu
         raise HTTPException(status_code=404, detail="Note not found")
     db.delete(note)
     db.commit()
-    return {"detail": "Note deleted"}
+    return {"detail": "Note deleted"}   
