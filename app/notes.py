@@ -18,3 +18,10 @@ def create_note(payload: NoteCreate, db: Session = Depends(get_db), user=Depends
 def read_notes(skip: int = Query(0, ge=0), limit: int = Query(10, le=100), db: Session = Depends(get_db), user=Depends(get_current_user)):
     notes = db.query(Note).filter(Note.owner_id == user.id).offset(skip).limit(limit).all()
     return notes
+
+@router.get("/{note_id}", response_model=NoteRead)
+def get_note(note_id: int, payload: NoteUpdate, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    note = db.query(Note).filter(Note.id == note_id, Note.owner_id == user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    return note
