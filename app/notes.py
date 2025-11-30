@@ -36,3 +36,12 @@ def update_note(note_id: int, payload: NoteUpdate, db: Session = Depends(get_db)
     db.commit()
     db.refresh(note)
     return note
+
+@router.delete("/{note_id}")
+def delete_note(note_id: int, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    note = db.query(Note).filter(Note.id == note_id, Note.owner_id == user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    db.delete(note)
+    db.commit()
+    return {"detail": "Note deleted"}
