@@ -25,3 +25,14 @@ def get_note(note_id: int, payload: NoteUpdate, db: Session = Depends(get_db), u
     if not note:
         raise HTTPException(status_code=404, detail="Note not found")
     return note
+
+@router.put("/{note_id}", response_model=NoteRead)
+def update_note(note_id: int, payload: NoteUpdate, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    note = db.query(Note).filter(Note.id == note_id, Note.owner_id == user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    note.title = payload.title
+    note.content = payload.content
+    db.commit()
+    db.refresh(note)
+    return note
